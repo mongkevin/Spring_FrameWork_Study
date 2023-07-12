@@ -1,0 +1,80 @@
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684744678042" level="DEBUG" thread="main">
+<log4j:message><![CDATA[디버그]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684744678043" level="INFO" thread="main">
+<log4j:message><![CDATA[인포]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684744678043" level="WARN" thread="main">
+<log4j:message><![CDATA[경고]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684744678043" level="ERROR" thread="main">
+<log4j:message><![CDATA[에러]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745095184" level="DEBUG" thread="main">
+<log4j:message><![CDATA[디버그]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745095185" level="INFO" thread="main">
+<log4j:message><![CDATA[인포]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745095185" level="WARN" thread="main">
+<log4j:message><![CDATA[경고]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745095185" level="ERROR" thread="main">
+<log4j:message><![CDATA[에러]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745129462" level="DEBUG" thread="main">
+<log4j:message><![CDATA[디버그]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745129463" level="INFO" thread="main">
+<log4j:message><![CDATA[인포]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745129463" level="WARN" thread="main">
+<log4j:message><![CDATA[경고]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745129463" level="ERROR" thread="main">
+<log4j:message><![CDATA[에러]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745264075" level="DEBUG" thread="main">
+<log4j:message><![CDATA[디버그]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745264076" level="INFO" thread="main">
+<log4j:message><![CDATA[인포]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745264076" level="WARN" thread="main">
+<log4j:message><![CDATA[경고]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test02" timestamp="1684745264076" level="ERROR" thread="main">
+<log4j:message><![CDATA[에러]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test01" timestamp="1688092852429" level="DEBUG" thread="main">
+<log4j:message><![CDATA[debug]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test01" timestamp="1688092852430" level="INFO" thread="main">
+<log4j:message><![CDATA[info]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test01" timestamp="1688092852430" level="WARN" thread="main">
+<log4j:message><![CDATA[warn]]></log4j:message>
+</log4j:event>
+
+<log4j:event logger="com.kh.logging.Test01" timestamp="1688092852430" level="ERROR" thread="main">
+<log4j:message><![CDATA[error]]></log4j:message>
+</log4j:event>
+

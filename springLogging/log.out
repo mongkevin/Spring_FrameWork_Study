@@ -1,0 +1,8 @@
+DEBUG: com.kh.logging.Test02 - 디버그
+ (2023-05-22 17:18:10,823)
+INFO : com.kh.logging.Test02 - 인포
+ (2023-05-22 17:18:10,823)
+WARN : com.kh.logging.Test02 - 경고
+ (2023-05-22 17:18:10,823)
+ERROR: com.kh.logging.Test02 - 에러
+ (2023-05-22 17:18:10,823)
