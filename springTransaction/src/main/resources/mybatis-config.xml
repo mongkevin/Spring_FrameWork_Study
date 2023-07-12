@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.kh.tx.model.vo.Category" alias="category"/>
+		<typeAlias type="com.kh.tx.model.vo.Product" alias="product"/>
+	</typeAliases>
+	
+	<!-- mapper 등록시 이미 존재하는 mapper파일만 등록 가능 -->
+<!-- 	<mappers> -->
+<!-- 		<mapper resource ="/mappers/test-mapper.xml"/> -->
+<!-- 	</mappers> -->
+</configuration>
