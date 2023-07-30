@@ -355,9 +355,143 @@ Maven 빌드의 세부 사항을 설정한다. 빌드 결과물이 생성되는 
 ---
 ## ajaxProject  
 
+1. HttpServletResponse 객체로 응답 데이터 응답하기(기존 servlet에서 사용하던 방식)  
+```java
+@RequestMapping("ajax1.do")
+public void ajaxMethod1(String name, int age,HttpServletResponse response) throws IOException {
+		
+		//이후 요청처리를 다 진행했다고 가정하고
+		//응답데이터 돌려주기
+		
+		String responseData = "이름은 "+name+"이고 나이는 "+age+"살입니다.";
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(responseData);
+		
+}
+```
+
+2. 응답할 데이터를 문자열로 반환
+   기존에 문자열로 반환하면 원래는 포워딩 방식으로 진행이 됐었다. (응답뷰로 인식하여 해당 페이지를 찾으려 한다)
+   그래서 이 반환값은 응답페이지가 아니라 응답 데이터라고 하는것을 작성해줘야한다.
+   그 역할을 하는 어노테이션이 @ResponseBody 이다.  
+```java
+	@ResponseBody
+	@RequestMapping(value="ajax1.do",produces="text/html;charset=UTF-8")
+	public String ajaxMethod1(String name, int age) {
+		
+		String responseData = "이름은 "+name+"이고 나이는 "+age+"살입니다.";
+		
+		return responseData;
+	}
+```
+
+3. 다수의 응답데이터가 있을 경우
+```java
+@RequestMapping("ajax2.do")
+	public void ajaxMethod2(int userNo,HttpServletResponse response) throws IOException {
+		
+		//요청처리가 다 되었다는 가정하고 진행
+		response.setContentType("text/html;charset=UTF-8");
+		response.getWriter().print("user01");
+		response.getWriter().print("김둘리");
+		
+		//JSON을 사용해서 응답하기
+		//JSONArray => [값,값,...]
+		//JSONObject => [키:값,키,값,...]
+		
+		JSONArray arr = new JSONArray();
+		arr.add("user01");
+		arr.add("김둘리");
+		
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().print(arr);
+		
+		JSONObject obj = new JSONObject();
+		obj.put("name", "김길동");
+		obj.put("age",20);
+		
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().print(obj);
+	}
+```
+
+4. 객체를 조회해왔다는 가정으로 진행
+```java
+	@ResponseBody
+	@RequestMapping(value="ajax2.do",produces="application/json;charset=UTF-8")
+	public String ajaxMethod2(int userNo) {
+		
+		Member m = new Member("도우너","user01",100);
+		
+		JSONObject jobj = new JSONObject();
+		jobj.put("userId", m.getUserId());
+		jobj.put("userName",m.getUserName());
+		jobj.put("age", m.getAge());
+		
+		return jobj.toJSONString();
+		
+		return new Gson().toJson(m);
+	}
+```
+
+5. 객체목록을 조회해왔다는 가정으로 진행
+```java
+	@ResponseBody
+	@RequestMapping(value="ajax3.do",produces="application/json;charset=UTF-8")
+	public String ajaxMethod3() {
+		
+		ArrayList<Member> list = new ArrayList<>();
+		
+		list.add(new Member("도우너","user01",100));
+		list.add(new Member("둘리","user02",120));	
+		list.add(new Member("희둥이","user03",5));
+		list.add(new Member("또치","user04",33));
+		
+		return new Gson().toJson(list);
+	}
+```
 
 ---
 ## opendataProject  
+
+본 프로젝트는 [공공데이터포털](https://www.data.go.kr/)를 사용하여 작성되었다.  
+
+1. API 이용
+   - 사이트 주소
+   - 서비스 키 등록
+   - 찾는 키워드(예 도시이름) 인코딩
+   - 원하는 데이터 형식
+   - 돌려 받는 데이터 크기
+
+```java
+		String url ="https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty";
+		url += "?serviceKey="+Run.SERVICEKEY;
+		url += "&sidoName="+URLEncoder.encode(location,"UTF-8");
+		url += "&returnType=json";
+		url += "&numOfRows=100";
+```
+
+2. 돌려받는 데이터 정제
+   - url 접속
+   - get 방식
+   - BufferedReader로 읽어 오기
+```java
+		URL requestUrl= new URL(url);
+		
+		HttpURLConnection urlCon = (HttpURLConnection)requestUrl.openConnection();
+		
+		urlCon.setRequestMethod("GET");
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(urlCon.getInputStream()));
+		
+		String responseText = "";
+		String line;
+		while((line=br.readLine())!=null) {
+			responseText += line;
+		}
+```
+
+데이터를 받아오는 형식은 보통 두 가지를 지원한다. JSON과 XML이다.  
 
 ---
 ## springAop
@@ -386,6 +520,36 @@ Spring 프레임워크에서 로깅은 애플리케이션의 동작을 모니터
 3. 로그 메시지 작성: 로그 메시지는 로그 레벨과 함께 작성됩니다. 보통 `logger.debug("Debug message");`와 같이 로그 메서드를 호출하여 메시지를 작성한다.
 4. 로그 출력 형식 설정: 로그 라이브러리는 로그 메시지를 어떤 형식으로 출력할지 설정할 수 있다.
 
+**Log4j.xml**  
+1. log4j의 메세지 체계  
+- TRACE : 프로그램내에서 발생하는 모든 사소한 기록 (작성불가)    
+- DEBUG : 개발할 때 필요의 의해서 확인해야하는 부분에 대한 기록    
+- INFO : 사용자에게 아려줘야할 정보에 대한 기록   
+- WARN : 실행은 되지만 문제가 생길 수 있는 경우 기록   
+- ERROR : 실행이 안되는 경우의 기록   
+- FATAL : 시스템에 치명적인 오류의 기록 (작성불가)  
+
+2. 설정 태그와 역할    
+- logger : 로깅을 수행하기 위한 도구(Logger)설정  
+- root : 전반적인 로깅 설정(Logger에서 설정하고 남은 설정)  
+- appender : 로깅의 대상을 설정하는 도구  
+
+3. 메세지 레이아웃   
+- %p : 메세지 레벨   
+- %c : 카테고리 정보(category). 로깅이 발생한 대상의 정보  
+- %m : 메세지(message) : 실제 로깅 정보메세지  
+- %n : 개생(newLine) \n  
+- %d : 시간(date) 정보 SimpleDateFormate 형식을 그대로 사용  
+
+4. 사용가능한 appender   
+- consoleAppender : 콘솔에 출력하는 도구  
+- FileAppender : 파일로 출력하는 도구  
+- DailyRollingFileAppender : 날짜별로 파일에 출력하는 도구  
+- RollingFileAppender : 용량별로 구분하여 출력하는 도구  
+
+```jsp
+
+```
 
 ---
 ## springSchedular
